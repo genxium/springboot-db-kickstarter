@@ -1,0 +1,1 @@
+The files under this directory are prepared for "server-side rendering by Nashorn engine", thus copied from npm react packages, under `<src-root>/umd/` of each. 

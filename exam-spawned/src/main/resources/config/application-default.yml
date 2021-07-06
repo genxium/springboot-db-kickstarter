@@ -1,0 +1,39 @@
+server:
+  ssl:
+    enabled: false
+  tomcat:
+    accesslog:
+      enabled: false
+
+eureka:
+  instance:
+    hostname: 127.0.0.1 # Hostname of the ClientInstance itself
+    hostAndPort: 127.0.0.1:10500
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostAndPort}/eureka/
+
+spring:
+  norpc-security:
+    cookieName: ExtAuthToken
+    rememberMeKey: U178_0y9#
+    rememberMeLifeSeconds: 604800 # 7*24*60*60
+    jasyptSymmetricSecret: abcdef
+  security:
+    cookieName: remember-me
+    usernameParameter: principal
+    rememberMeKey: Y1#n8_0x_22E#
+    rememberMeLifeSeconds: 604800 # 7*24*60*60
+    targetUrlParameter: targetUrl
+    defaultAuthEndpoint: http://localhost:10570/login
+  rwds:
+    master:
+      username: root
+      password:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      jdbcUrl: jdbc:mysql://localhost:3306/exam
+    slaveList:
+      - username: root
+        password:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://localhost:3306/exam # ShardingSphere MasterSlaveDataSource requires non-empty slave list

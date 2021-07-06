@@ -1,0 +1,30 @@
+# Example for other modules' "application-<env>.yml"
+
+#server:
+#  ssl:
+#    enabled: false
+#
+#spring:
+#  norpc-security:
+#    cookieName: ExtAuthToken
+#    rememberMeKey: U178_0y9#
+#    rememberMeLifeSeconds: 604800 # 7*24*60*60
+#    jasyptSymmetricSecret: abcdef
+#  security:
+#    usernameParameter: principal
+#    cookieName: remember-me
+#    rememberMeKey: U178_0y9#
+#    rememberMeLifeSeconds: 604800 # 7*24*60*60
+#    targetUrlParameter: targetUrl
+#    defaultAuthEndpoint: http://localhost:10570/login
+#  rwds:
+#    master:
+#      username: root
+#      password:
+#      driverClassName: com.mysql.cj.jdbc.Driver
+#      jdbcUrl: jdbc:mysql://192.168.56.102:3307/exam
+#    slaveList:
+#      - username: root
+#        password:
+#        driverClassName: com.mysql.cj.jdbc.Driver
+#        jdbcUrl: jdbc:mysql://192.168.56.102:3308/exam

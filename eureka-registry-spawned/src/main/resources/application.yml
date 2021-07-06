@@ -1,0 +1,21 @@
+server:
+  port: ${PORT:10500}
+  connection-timeout: 5s
+  max-http-header-size: 8KB
+  tomcat:
+    max-threads: 200
+    max-swallow-size: 2MB
+    max-http-post-size: 2MB
+
+# By default, the registry also tries to register itself.
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+logging:
+  level:
+    root: INFO
+    com.netflix:
+      eureka: OFF
+      discovery: OFF

@@ -1,0 +1,6 @@
+server:
+  ssl:
+    enabled: false
+  tomcat:
+    accesslog:
+      enabled: false

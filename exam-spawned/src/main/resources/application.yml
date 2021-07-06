@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: authenticator
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+server:
+  port: ${PORT:10571}
+  connection-timeout: 5s
+  max-http-header-size: 8KB
+  tomcat:
+    max-threads: 200
+    max-swallow-size: 2MB
+    max-http-post-size: 2MB
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  packagesToScan: com.mytrial.app.controllers
+  pathsToMatch: /Welcome
+
+logging:
+  level:
+    root: INFO
+    com.netflix:
+      eureka: OFF
+      discovery: OFF
