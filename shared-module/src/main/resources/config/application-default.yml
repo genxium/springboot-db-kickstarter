@@ -1,5 +1,7 @@
 # Example for other modules' "application-<env>.yml"
 
+#zk:
+#  endpoint: localhost:2181
 #server:
 #  ssl:
 #    enabled: false

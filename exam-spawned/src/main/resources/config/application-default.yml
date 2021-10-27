@@ -5,10 +5,10 @@ server:
     accesslog:
       enabled: false
 
+zk:
+  endpoint: 192.168.1.107:2181
+
 spring:
-  cloud:
-    zookeeper:
-      connect-string: 192.168.1.107:2181 # "Spring Cloud" magic property "spring.cloud.zookeeper.connect-string"
   norpc-security:
     cookieName: ExtAuthToken
     rememberMeKey: U178_0y9#
