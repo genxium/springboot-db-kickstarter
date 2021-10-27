@@ -138,6 +138,7 @@
             <version>1.18.16</version>
             <scope>provided</scope> <!-- Intransitive, see https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html. -->
         </dependency>
+
     </dependencies>
 
     <build>

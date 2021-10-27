@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponents;
@@ -20,6 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Slf4j
+@Component("noRpcRememberMeService")
 public class NoRpcRememberMeService extends AbstractRememberMeServices {
     private NoRpcSecurityConfigs noRpcSecurityConfigs;
 

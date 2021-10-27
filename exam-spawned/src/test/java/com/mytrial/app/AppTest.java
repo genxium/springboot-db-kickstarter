@@ -1,11 +1,8 @@
 package com.mytrial.app;
 
-import com.mytrial.app.models.Player;
-import com.mytrial.app.rwds.BeanExporter;
-import com.mytrial.app.security.DatabaseAuthenticationManager;
+import com.mytrial.app.shardingsphereds.BeanExporter;
 import com.mytrial.app.security.DatabasePasswordEncoder;
 import com.mytrial.app.security.GrantedRolesMapper;
-import com.thoughtworks.xstream.core.util.Base64Encoder;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Before;
@@ -21,12 +18,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**

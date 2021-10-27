@@ -12,6 +12,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+@Slf4j
 @Configuration
 @ConfigurationProperties(prefix = "spring.thymeleaf")
 public class TailoredThymeleafWebMvcConfigurer implements WebMvcConfigurer {
