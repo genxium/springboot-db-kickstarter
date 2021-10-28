@@ -22,4 +22,5 @@ Spring的`property xxx`特指context.getEnvironment().getProperty('xxx')，并�
 
 **提倡使用第一种方法，因为这样有冲突的property key就会以`application.properties`或`application.yml`中的为准**。
 
+但是这个项目中shared-module的ZkPropsConfigs用的是第二种方法。
 
