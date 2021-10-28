@@ -1,6 +1,7 @@
 package com.mytrial.app.shardingsphereds;
 
-import com.mytrial.app.preconf.ZkPropsConfigs;
+import com.mytrial.app.preconf.ZkPropsSource;
+import com.mytrial.app.preconf.ZkPropsSourceInjector;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -13,12 +14,10 @@ import java.util.List;
 @Component("shardingSphereMsConfigs")
 @ConfigurationProperties(prefix = "spring.rwds")
 public class RwPoolConfigs {
-    private ZkPropsConfigs zkPropsConfigs;
 
     @Autowired
-    public RwPoolConfigs(ZkPropsConfigs zkPropsConfigs) {
-        // Ensure that the synthesizing of "ZkPropsConfigs" is before "RwPoolConfigs".
-        this.zkPropsConfigs = zkPropsConfigs;
+    public RwPoolConfigs(ZkPropsSourceInjector zkPropsSourceInjector) {
+
     }
 
     @NestedConfigurationProperty // MUST USE when the field requires another layer of @Data to deserialize

@@ -2,35 +2,31 @@ package com.mytrial.app.preconf;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Properties;
 
 @Slf4j
-@Configuration
-public class ZkPropertySourceUnderlying implements Watcher {
-    @Value("${zk.confpath:/}")
-    private String confpath; // The path of the JSONString you want to parse into properties
+@Component
+@ConfigurationProperties
+public class ZkPropsSourceUnderlying implements Watcher {
 
-    @Value("${zk.endpoint:\"localhost:2181\"}")
-    private String endpoint;
+    private final Properties exportingProps = new Properties();
 
-    @Value("${zk.sessionTimeout:1000}")
-    private int sessionTimeout;
-
-    private Properties exportingProps;
-
-    public ZkPropertySourceUnderlying() {
+    // [WARNING] Specify "@Autowired" here to ensure that constructor is called AFTER "@Value"s are injected
+    @Autowired
+    public ZkPropsSourceUnderlying(@Value("${zk.endpoint:\"localhost:2181\"}") String endpoint, @Value("${zk.confpath:/}") String confpath, @Value("${zk.sessionTimeout:1000}") int sessionTimeout) {
         try {
+            exportingProps.put("foo", "bar"); // For testing init order.
             final ZooKeeper zookeeperClient = new ZooKeeper(endpoint, sessionTimeout, this);
             final ObjectMapper objectMapper = new ObjectMapper();
             final JsonNode detailsNode = objectMapper.readTree(zookeeperClient.getData(confpath, false, null));
@@ -42,6 +38,7 @@ public class ZkPropertySourceUnderlying implements Watcher {
                 "details": "{"spring.rwds.master.username":"root", "spring.rwds.master.driverClassName":"com.mysql.cj.jdbc.Driver", ... }"
             }
              */
+
             detailsNode.fields().forEachRemaining((r) -> {
                 String key = r.getKey();
                 String val = r.getValue().textValue(); // Type is guaranteed a string
