@@ -37,4 +37,4 @@ spring:
       - username: root
         password:
         driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://localhost:3306/exam # ShardingSphere MasterSlaveDataSource requires non-empty slave list
+        jdbcUrl: jdbc:mysql://localhost:3308/exam # ShardingSphere MasterSlaveDataSource requires non-empty slave list
