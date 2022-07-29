@@ -1,0 +1,14 @@
+server:
+  port: ${PORT:10600}
+  connection-timeout: 5s
+  max-http-header-size: 8KB
+  ha:
+    count: 3
+  tomcat:
+    max-threads: 200
+    max-swallow-size: 2MB
+    max-http-post-size: 2MB
+
+logging: # TODO: Apply size and time BasedollingPolicy
+  level:
+    root: INFO
