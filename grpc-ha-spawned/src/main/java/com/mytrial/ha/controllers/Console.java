@@ -1,7 +1,7 @@
 package com.mytrial.ha.controllers;
 
 import io.grpc.Server;
-import com.mytrial.ha.RpcServer;
+import com.mytrial.ha.RpcServerClusterManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,18 +14,12 @@ import java.util.List;
 @RestController
 public class Console {
     @Autowired
-    RpcServer rpcServer;
+    RpcServerClusterManager rpcServerClusterManager;
 
-    @GetMapping(value = "/restart")
-    void restart() throws InterruptedException, IOException {
-        // TODO: Rollback if any of the grpc server restart fails.
-        List<Server> haServers = rpcServer.getHaServers();
-        for (Server haServer : haServers) {
-            // TODO: Reload the patched folder (of classes and resources) only for this single "haServer" because it starts.
-            haServer.shutdown();
-            haServer.awaitTermination();
-            haServer.start();
-        }
+    @GetMapping(value = "/restartAll")
+    public boolean restartAll() throws InterruptedException, IOException, ClassNotFoundException {
+        rpcServerClusterManager.restartAll();
+        return true;
     }
 }
 

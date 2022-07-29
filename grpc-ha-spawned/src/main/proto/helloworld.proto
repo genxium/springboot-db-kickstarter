@@ -3,16 +3,14 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "com.mytrial.pb";
 option java_outer_classname = "HelloWorldProto";
-option objc_class_prefix = "HLW";
+option java_generic_services = false; // This is deprecated and thus the default is also "false". Reference https://developers.google.com/protocol-buffers/docs/reference/java-generated#service
 
-package helloworld;
+package helloworld; // Not used because "java_package" is specified. Reference https://grpc.io/docs/languages/java/generated-code/#packages
 
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
 }
 
 // The request message containing the user's name.
