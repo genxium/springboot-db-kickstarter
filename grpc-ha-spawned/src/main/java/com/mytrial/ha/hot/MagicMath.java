@@ -8,6 +8,6 @@ public class MagicMath {
     }
 
     public int getVersion() {
-        return 2; // Update this by a class patch and test
+        return 1; // Update this by a class patch and test
     }
 }
