@@ -1,7 +1,8 @@
 package com.mytrial.ha.hot;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MagicMath {
     public int add(final int a, final int b) {
         return a+b;
