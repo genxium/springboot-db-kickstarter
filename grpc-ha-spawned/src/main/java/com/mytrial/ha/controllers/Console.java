@@ -17,7 +17,7 @@ public class Console {
     RpcServerClusterManager rpcServerClusterManager;
 
     @GetMapping(value = "/restartAll")
-    public boolean restartAll() throws InterruptedException, IOException, ClassNotFoundException {
+    public boolean restartAll() throws InterruptedException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         rpcServerClusterManager.restartAll();
         return true;
     }

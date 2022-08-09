@@ -1,28 +1,31 @@
 package com.mytrial.ha;
 
+import com.mytrial.classloader.DynamicClassLoader;
 import com.mytrial.ha.hot.MagicMath;
 import com.mytrial.pb.GreeterGrpc;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.OverridingClassLoader;
-import org.springframework.core.SmartClassLoader;
+import org.springframework.remoting.RemoteInvocationFailureException;
+import org.springframework.stereotype.Component;
 
-import java.net.URLClassLoader;
+import java.lang.reflect.Method;
 
 @Data
 @Slf4j
 public class RpcServerImpl extends GreeterGrpc.GreeterImplBase {
-    protected ClassPathXmlApplicationContext context;
 
-    public RpcServerImpl(int id) throws ClassNotFoundException {
+    public RpcServerImpl(int id) throws RemoteInvocationFailureException {
         super();
-        context = new ClassPathXmlApplicationContext("hot-update-context.xml"); // Supposed to reload all beans under its own context
-        final ClassLoader usingClassLoader = context.getClassLoader(); // Would be the same class loader (w.r.t. object id) for all newly created contexts if not otherwise specified
-        final OverridingClassLoader ctxDependentClassLoader = new OverridingClassLoader(usingClassLoader);
-        context.setClassLoader(ctxDependentClassLoader);
-        context.refresh();
-        final MagicMath magicMathService = context.getBean(MagicMath.class);
-        log.info("For rpc server id: {}, using Spring ApplicationContext class loader {}, magicMathService.version is {}", id, usingClassLoader, magicMathService.getVersion());
+        try {
+            final ClassLoader usingClassLoader = Thread.currentThread().getContextClassLoader();
+            final DynamicClassLoader ctxDependentClassLoader = new DynamicClassLoader(usingClassLoader);
+            final Class<?> clazz = ctxDependentClassLoader.loadClass(MagicMath.class.getName());
+            final Object magicMathServiceStub = clazz.newInstance(); // This "magicMathServiceStub" cannot be casted into an MagicMath instance because it's loaded by a different class loader than the original "usingClassLoader".
+            final Method getVersionMethod = clazz.getDeclaredMethod("getVersion");
+            final int magicMathVer = (int) getVersionMethod.invoke(magicMathServiceStub);
+            log.info("For rpc server id: {}, using Spring ApplicationContext class loader {}, magicMathService.version is {}", id, usingClassLoader, magicMathVer);
+        } catch (Exception ex) {
+            throw new RemoteInvocationFailureException("Failed to initiate RpcServerImpl id = " + id, ex);
+        }
     }
 }

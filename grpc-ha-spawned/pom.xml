@@ -14,8 +14,6 @@
         <protobuf.version>3.21.1</protobuf.version>
         <protoc.version>3.21.1</protoc.version>
         <lombok.version>1.18.24</lombok.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <parent>
@@ -31,16 +29,9 @@
     <name>grpc-ha-spawned</name>
     <packaging>jar</packaging>
 
-    <distributionManagement>
-        <repository>
-            <id>snapshot-repo</id>
-            <url>file:///${project.basedir}/../snapshot-repo</url>
-        </repository>
-    </distributionManagement>
-
     <!--
-        SpringBoot dependencies.
-        -->
+    SpringBoot dependencies.
+    -->
     <dependencies>
         <dependency>
             <groupId>io.grpc</groupId>

@@ -9,6 +9,6 @@ server:
     max-swallow-size: 2MB
     max-http-post-size: 2MB
 
-logging: # TODO: Apply size and time BasedollingPolicy
+logging: # TODO: Apply size and time BaseRollingPolicy
   level:
     root: INFO
